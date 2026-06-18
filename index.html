@@ -1,208 +1,1505 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth dark">
+<html lang="es" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rolando D. Gómez | Data Engineer & Power BI Consultant</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- SEO Meta Tags -->
+    <title>Rolando David Gómez | Desarrollador de Software & Data Engineer</title>
+    <meta name="description" content="Portafolio profesional de Rolando David Gómez, Desarrollador de Aplicaciones Multiplataforma (DAM) y Data Engineer. Especialista en Python, Java, SQL, Big Data y automatización.">
+    <meta name="keywords" content="Rolando David Gómez, Desarrollador DAM, Desarrollador Backend, Data Engineer, Python, Java, SQL, Big Data, Android, iOS, Ciudad Real, España">
+    <meta name="author" content="Rolando David Gómez Gutiérrez">
+    
+    <!-- Open Graph (LinkedIn / Social Sharing) -->
+    <meta property="og:title" content="Rolando David Gómez | Desarrollador de Software & Data Engineer">
+    <meta property="og:description" content="Desarrollador de software multiplataforma especializado en backend, bases de datos y arquitectura Big Data. Automatización y optimización de sistemas.">
+    <meta property="og:image" content="./profile.jpg">
+    <meta property="og:type" content="website">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-text {
-            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+        /* CSS variables for Dark and Light theme */
+        :root[data-theme="dark"] {
+            --bg-color: #0b0f19;
+            --bg-grid: rgba(59, 130, 246, 0.03);
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-bg-solid: #111827;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --primary: #3b82f6; /* Blue for Backend */
+            --primary-rgb: 59, 130, 246;
+            --secondary: #8b5cf6; /* Violet for Mobile/Frontend */
+            --secondary-rgb: 139, 92, 246;
+            --accent: #10b981; /* Emerald for Data/DataBases */
+            --border-color: rgba(255, 255, 255, 0.08);
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --hero-glow: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15), transparent 60%);
+            --input-bg: #1f2937;
+        }
+
+        :root[data-theme="light"] {
+            --bg-color: #f8fafc;
+            --bg-grid: rgba(37, 99, 235, 0.02);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-bg-solid: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --primary: #2563eb;
+            --primary-rgb: 37, 99, 235;
+            --secondary: #7c3aed;
+            --secondary-rgb: 124, 58, 237;
+            --accent: #059669;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --hero-glow: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.06), transparent 60%);
+            --input-bg: #f1f5f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(var(--bg-grid) 1px, transparent 1px),
+                radial-gradient(var(--bg-grid) 1px, transparent 1px);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--secondary);
+        }
+
+        /* Container styling */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header / Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 1.2rem 0;
+        }
+
+        header.scrolled {
+            background-color: var(--card-bg-solid);
+            box-shadow: var(--shadow);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.8rem 0;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .logo-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: inline-block;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.2rem 0;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+            background-color: rgba(var(--primary-rgb), 0.1);
+        }
+
+        .btn-cta {
+            background: var(--gradient);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(var(--primary-rgb), 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(var(--primary-rgb), 0.4);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 10rem 0 6rem 0;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: var(--hero-glow);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .hero-badge {
+            background-color: rgba(var(--primary-rgb), 0.1);
+            border: 1px solid rgba(var(--primary-rgb), 0.2);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span.gradient-text {
+            background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .blob {
+
+        .hero h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-bullets {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            width: 100%;
+        }
+
+        .hero-bullet-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .hero-bullet-item i {
+            color: var(--accent);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border-color);
+            border-color: var(--text-primary);
+        }
+
+        /* Avatar Container with Glow & Tilt */
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .avatar-card {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            border-radius: 24px;
+            padding: 8px;
+            background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.3) 0%, rgba(var(--secondary-rgb), 0.3) 100%);
+            box-shadow: var(--shadow);
+            z-index: 1;
+        }
+
+        .avatar-card::after {
+            content: '';
             position: absolute;
-            filter: blur(90px);
+            inset: -4px;
+            border-radius: 28px;
+            background: var(--gradient);
             z-index: -1;
+            filter: blur(20px);
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .avatar-card:hover::after {
+            opacity: 0.8;
+        }
+
+        .avatar-img-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 18px;
+            overflow: hidden;
+            background-color: var(--card-bg-solid);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-badge {
+            position: absolute;
+            bottom: -15px;
+            right: -15px;
+            background-color: var(--card-bg-solid);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow);
+            z-index: 2;
+        }
+
+        .avatar-badge-text {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.1;
+        }
+
+        .avatar-badge-sub {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+        }
+
+        /* Section Layouts */
+        section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3.5rem auto;
+        }
+
+        .section-badge {
+            background-color: rgba(var(--primary-rgb), 0.08);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-header h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* About */
+        .about-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .about-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+        }
+
+        .highlight-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .highlight-item i {
+            color: var(--primary);
+            padding: 0.5rem;
+            background-color: rgba(var(--primary-rgb), 0.08);
+            border-radius: 8px;
+        }
+
+        .highlight-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .highlight-desc {
+            font-size: 0.85rem;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            margin-bottom: 1.5rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background-color: rgba(var(--primary-rgb), 0.08);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .service-card:nth-child(2) .service-icon {
+            background-color: rgba(var(--secondary-rgb), 0.08);
+            color: var(--secondary);
+        }
+
+        .service-card:nth-child(3) .service-icon {
+            background-color: rgba(16, 185, 129, 0.08);
+            color: var(--accent);
+        }
+
+        .service-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* Skills Section */
+        .skills-section {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .skills-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: var(--card-bg-solid);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.2);
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+            min-height: 120px;
+        }
+
+        .skill-tag {
+            background-color: var(--card-bg-solid);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.6rem 1.4rem;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: default;
+        }
+
+        .skill-tag:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.1);
+        }
+
+        .skill-tag i {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Timeline / Experience */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
             opacity: 0.3;
         }
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3.5rem;
+            transition: all 0.4s ease;
         }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -2rem;
+            top: 6px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--bg-color);
+            border: 3px solid var(--primary);
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            border-color: var(--secondary);
+        }
+
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.3);
+            background-color: var(--text-primary);
+        }
+
+        .timeline-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+            transform: translateX(5px);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-title h4 {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .timeline-company {
+            font-size: 0.95rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .timeline-item:nth-child(even) .timeline-company {
+            color: var(--secondary);
+        }
+
+        .timeline-date {
+            background-color: rgba(var(--primary-rgb), 0.06);
+            border: 1px solid rgba(var(--primary-rgb), 0.1);
+            color: var(--text-primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .timeline-item:nth-child(even) .timeline-date {
+            background-color: rgba(var(--secondary-rgb), 0.06);
+            border: 1px solid rgba(var(--secondary-rgb), 0.1);
+        }
+
+        .timeline-body p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-body ul {
+            padding-left: 1.2rem;
+            list-style-type: none;
+        }
+
+        .timeline-body li {
+            position: relative;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .timeline-body li::before {
+            content: '→';
+            position: absolute;
+            left: -1.2rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .timeline-item:nth-child(even) .timeline-body li::before {
+            color: var(--secondary);
+        }
+
+        .timeline-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.2rem;
+        }
+
+        .timeline-tag {
+            background-color: var(--card-bg-solid);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Education & Certifications */
+        .edu-cert-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3.5rem;
+        }
+
+        .edu-column h4, .cert-column h4 {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .edu-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .edu-card h5 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .edu-institution {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-desc {
+            font-size: 0.85rem;
+        }
+
+        .cert-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cert-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .cert-item:hover {
+            border-color: var(--secondary);
+            transform: translateX(4px);
+        }
+
+        .cert-info {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .cert-icon-wrapper {
+            background-color: rgba(var(--secondary-rgb), 0.08);
+            color: var(--secondary);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .cert-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .cert-topics {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.15rem;
+        }
+
+        /* Contacts & CTA */
+        .contact-card {
+            background: linear-gradient(135deg, var(--card-bg-solid) 0%, rgba(var(--primary-rgb), 0.1) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(var(--primary-rgb), 0.05) 0%, transparent 60%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .contact-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-card h4 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .contact-card p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .contact-btn {
+            background-color: var(--card-bg-solid);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.2s ease;
+        }
+
+        .contact-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-btn.primary-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+        }
+
+        .contact-btn.primary-btn:hover {
+            box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.3);
+        }
+
+        /* Success Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--card-bg-solid);
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 0;
+            margin-top: 5rem;
+            text-align: center;
+        }
+
+        .footer-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        .footer-copy {
+            font-size: 0.85rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-socials a {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .footer-socials a:hover {
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+            background-color: rgba(var(--primary-rgb), 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Scroll Animate Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            .hero-content {
+                align-items: center;
+            }
+            .hero-bullets {
+                max-width: 500px;
+            }
+            .about-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            .edu-cert-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+            nav {
+                display: none;
+            }
+            .contact-card {
+                padding: 2.5rem 1.5rem;
+            }
+            .footer-wrapper {
+                flex-direction: column;
+                text-align: center;
+            }
         }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-200 antialiased selection:bg-blue-500/30 selection:text-blue-200 relative overflow-x-hidden">
+<body>
 
-    <!-- Fondos decorativos Oscuros -->
-    <div class="blob bg-blue-600 w-96 h-96 rounded-full top-[-10%] left-[-10%]"></div>
-    <div class="blob bg-cyan-600 w-96 h-96 rounded-full top-[20%] right-[-5%]"></div>
-
-    <!-- Navegación -->
-    <nav class="fixed w-full bg-slate-900/80 backdrop-blur-lg z-50 border-b border-slate-800 transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <span class="font-extrabold text-2xl tracking-tighter text-white">RG<span class="text-blue-500">.</span></span>
-                <div class="hidden md:flex space-x-8 text-sm font-semibold text-slate-400">
-                    <a href="#sobre-mi" class="hover:text-white transition">Perfil General</a>
-                    <a href="#servicios" class="hover:text-white transition">Especialidad</a>
-                    <a href="#experiencia" class="hover:text-white transition">Experiencia</a>
-                    <a href="#formacion" class="hover:text-white transition">Formación</a>
-                </div>
-                <a href="#contacto" class="hidden md:inline-flex bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-5 py-2.5 rounded-full transition-colors shadow-lg shadow-blue-500/20">
-                    Contactar
+    <!-- Header Navigation -->
+    <header id="header">
+        <div class="container nav-wrapper">
+            <a href="#" class="logo">
+                RD.GÓMEZ <span class="logo-dot"></span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#sobre-mi" class="nav-link">Sobre Mí</a></li>
+                    <li><a href="#servicios" class="nav-link">Servicios</a></li>
+                    <li><a href="#habilidades" class="nav-link">Habilidades</a></li>
+                    <li><a href="#experiencia" class="nav-link">Experiencia</a></li>
+                    <li><a href="#educacion" class="nav-link">Estudios</a></li>
+                </ul>
+            </nav>
+            <div class="nav-actions">
+                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Cambiar tema">
+                    <i data-lucide="sun" id="theme-icon-sun" style="display: none;"></i>
+                    <i data-lucide="moon" id="theme-icon-moon"></i>
+                </button>
+                <a href="#contacto" class="btn-cta">
+                    <i data-lucide="send" style="width: 16px; height: 16px;"></i> Conectar
                 </a>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section / Datos Generales -->
-    <section id="sobre-mi" class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-4 flex items-center min-h-[90vh]">
-        <div class="max-w-5xl mx-auto text-center fade-in-up">
-            <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 px-4 py-2 rounded-full mb-6">
-                <span class="relative flex h-3 w-3">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <span class="hero-badge">
+                    <i data-lucide="code-2" style="width: 16px; height: 16px;"></i> Desarrollador Multiplataforma
                 </span>
-                <span class="text-sm font-medium text-blue-400">Disponible para proyectos Freelance / Remoto</span>
-            </div>
-            
-            <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-8 leading-tight">
-                Traduzco datos complejos en <br class="hidden md:block" />
-                <span class="gradient-text">decisiones de negocio claras.</span>
-            </h1>
-            
-            <p class="text-lg md:text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed">
-                Soy <strong>Contador Público convertido en Data Engineer y Programador</strong>. Combino mi visión financiera corporativa con herramientas tecnológicas avanzadas (SQL, Power BI, Python, Automate) para estructurar datos, automatizar procesos y crear dashboards que impactan directamente en la rentabilidad.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
-                <a href="mailto:rggprogramador@gmail.com" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-full transition shadow-lg shadow-blue-500/30 flex items-center justify-center">
-                    <i class="fas fa-envelope mr-2"></i> rggprogramador@gmail.com
-                </a>
-                <a href="https://linkedin.com/in/rggcontable" target="_blank" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-semibold px-8 py-4 rounded-full transition flex items-center justify-center shadow-sm">
-                    <i class="fab fa-linkedin text-[#0A66C2] text-xl mr-2"></i> Conectar en LinkedIn
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Qué Hago (Servicios/Especialidad) -->
-    <section id="servicios" class="py-20 bg-slate-950 border-y border-slate-800/50">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-white mb-4">Mi Especialidad Tecnológica</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto">La ventaja de un perfil híbrido: entiendo la lógica del negocio contable y operativo, y domino el stack técnico para automatizarla.</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-900/20 hover:-translate-y-1 transition-all duration-300">
-                    <div class="w-14 h-14 bg-slate-800 rounded-xl flex items-center justify-center mb-6 border border-slate-700">
-                        <i class="fas fa-chart-pie text-2xl text-yellow-500"></i>
+                <h1>
+                    Construyendo <br>
+                    <span class="gradient-text">Software Robusto</span> <br>
+                    y Soluciones de Datos
+                </h1>
+                <h2>
+                    <span>Backend Developer</span>
+                    <span>|</span>
+                    <span style="color: var(--primary);">Data Engineer</span>
+                </h2>
+                <p class="hero-desc">
+                    Especializado en el diseño de arquitecturas lógicas backend, desarrollo móvil y procesamiento de bases de datos relacionales y distribuidas. Transformo necesidades complejas en código limpio y eficiente.
+                </p>
+                <div class="hero-bullets">
+                    <div class="hero-bullet-item">
+                        <i data-lucide="check-circle-2" style="width: 18px; height: 18px;"></i>
+                        <span>Desarrollo Python & Java</span>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Power BI & Reporting UX</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        Creación y optimización de métricas (DAX). Diseño de cuadros de mando intuitivos orientados a negocio, mejorando la usabilidad (UX) para directivos.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 px-2 py-1 rounded">Power BI</span>
-                        <span class="text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 px-2 py-1 rounded">DAX</span>
-                        <span class="text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 px-2 py-1 rounded">Tableau</span>
+                    <div class="hero-bullet-item">
+                        <i data-lucide="check-circle-2" style="width: 18px; height: 18px;"></i>
+                        <span>Bases de Datos & Big Data</span>
+                    </div>
+                    <div class="hero-bullet-item">
+                        <i data-lucide="check-circle-2" style="width: 18px; height: 18px;"></i>
+                        <span>Despliegue de Apps Móviles</span>
+                    </div>
+                    <div class="hero-bullet-item">
+                        <i data-lucide="check-circle-2" style="width: 18px; height: 18px;"></i>
+                        <span>Estudiante DAM de alto nivel</span>
                     </div>
                 </div>
-
-                <!-- Card 2 -->
-                <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-900/20 hover:-translate-y-1 transition-all duration-300">
-                    <div class="w-14 h-14 bg-slate-800 rounded-xl flex items-center justify-center mb-6 border border-slate-700">
-                        <i class="fas fa-database text-2xl text-blue-400"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Ingeniería de Datos & SQL</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        Consolidación de fuentes (ETL), modelado relacional y extracción de grandes volúmenes de transacciones garantizando la integridad de la información.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 px-2 py-1 rounded">SQL Avanzado</span>
-                        <span class="text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 px-2 py-1 rounded">Bases de Datos</span>
-                        <span class="text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 px-2 py-1 rounded">Python</span>
-                    </div>
+                <div class="hero-actions">
+                    <a href="#sobre-mi" class="btn-cta">Ver Perfil</a>
+                    <a href="#experiencia" class="btn-secondary">Ver Proyectos</a>
                 </div>
-
-                <!-- Card 3 -->
-                <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-900/20 hover:-translate-y-1 transition-all duration-300">
-                    <div class="w-14 h-14 bg-slate-800 rounded-xl flex items-center justify-center mb-6 border border-slate-700">
-                        <i class="fas fa-cogs text-2xl text-emerald-400"></i>
+            </div>
+            <div class="hero-visual">
+                <div class="avatar-card">
+                    <div class="avatar-img-container">
+                        <img src="./profile.jpg" alt="Rolando David Gómez Gutiérrez" id="profile-img">
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Automatización de Procesos</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        Sincronización de ERPs, configuración de alertas automáticas y mapeo lógico de flujos operativos para eliminar cuellos de botella manuales.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 px-2 py-1 rounded">Power Automate</span>
-                        <span class="text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 px-2 py-1 rounded">Microsoft Visio</span>
-                        <span class="text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 px-2 py-1 rounded">ETL</span>
+                    <div class="avatar-badge">
+                        <div class="cert-icon-wrapper" style="width:30px; height:30px; background-color: rgba(59, 130, 246, 0.08); color: var(--primary);">
+                            <i data-lucide="terminal" style="width: 16px; height: 16px;"></i>
+                        </div>
+                        <div>
+                            <div class="avatar-badge-text">Ciudad Real</div>
+                            <div class="avatar-badge-sub">España</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Experiencia Profesional -->
-    <section id="experiencia" class="py-20 px-4">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl font-bold text-white mb-12 text-center">Experiencia Destacada</h2>
+    <!-- Sobre Mí -->
+    <section id="sobre-mi" class="reveal">
+        <div class="container">
+            <div class="about-wrapper">
+                <div class="about-text">
+                    <span class="section-badge">Trayectoria Tecnológica</span>
+                    <h3>Sobre Mí</h3>
+                    <p>
+                        Soy un desarrollador de software y analista de datos con una sólida orientación hacia la lógica y la automatización de procesos, habiendo consolidado mi base formativa y técnica en el sector del software.
+                    </p>
+                    <p>
+                        Mi enfoque técnico se centra en el desarrollo multiplataforma (DAM) y la ingeniería de datos masivos. Me apasiona resolver retos lógicos complejos, optimizar la eficiencia de bases de datos y estructurar APIs sólidas que garanticen la escalabilidad y disponibilidad de la información de sistemas empresariales.
+                    </p>
+                </div>
+                <div class="about-highlights">
+                    <div class="highlight-item">
+                        <i data-lucide="database"></i>
+                        <div>
+                            <div class="highlight-title">Ingeniería & Modelado de Datos</div>
+                            <div class="highlight-desc">Capaz de estructurar y depurar bases de datos complejas para el análisis sistemático y la toma de decisiones.</div>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <i data-lucide="terminal"></i>
+                        <div>
+                            <div class="highlight-title">Arquitectura Multiplataforma (DAM)</div>
+                            <div class="highlight-desc">Diseño utilidades para sistemas operativos de escritorio, backend en la nube y terminales móviles.</div>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <i data-lucide="shield-alert"></i>
+                        <div>
+                            <div class="highlight-title">Seguridad e Integridad IT</div>
+                            <div class="highlight-desc">Implementación de controles de acceso de información, protocolos de seguridad y validación de software.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Servicios -->
+            <div id="servicios" style="margin-top: 6rem;">
+                <div class="section-header">
+                    <span class="section-badge">Áreas de Especialización</span>
+                    <h3>Lo que puedo hacer por tu empresa</h3>
+                    <p>Aplicación de metodologías ágiles y lógica de programación para construir soluciones estables.</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon"><i data-lucide="code-2"></i></div>
+                        <h4>Desarrollo Backend & APIs</h4>
+                        <p>Creación de la lógica de negocio y APIs robustas utilizando Python (con Django) y Java. Foco en la modularidad del código, patrones de diseño orientados a objetos y la integración de servicios web escalables.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i data-lucide="database"></i></div>
+                        <h4>Bases de Datos & Big Data</h4>
+                        <p>Diseño y optimización de consultas en SQL para gestionar grandes volúmenes transaccionales. Arquitectura de procesamiento distribuido mediante frameworks Big Data como Hadoop y Apache Spark, así como almacenamiento NoSQL.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i data-lucide="smartphone"></i></div>
+                        <h4>Desarrollo Multiplataforma</h4>
+                        <p>Desarrollo y despliegue de aplicaciones funcionales para plataformas móviles (Android e iOS) e integración de software ofimático y de control empresarial para la optimización de flujos operativos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Habilidades -->
+    <section id="habilidades" class="skills-section reveal">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Especialidades</span>
+                <h3>Stack Tecnológico & Habilidades</h3>
+                <p>Lenguajes de programación, bases de datos y herramientas de infraestructura que domino.</p>
+            </div>
             
-            <div class="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-700 before:to-transparent">
+            <div class="skills-tabs">
+                <button class="tab-btn active" data-category="all">
+                    <i data-lucide="layout-grid" style="width:16px; height:16px;"></i> Todos
+                </button>
+                <button class="tab-btn" data-category="backend">
+                    <i data-lucide="code" style="width:16px; height:16px;"></i> Backend & Lenguajes
+                </button>
+                <button class="tab-btn" data-category="data">
+                    <i data-lucide="database" style="width:16px; height:16px;"></i> Datos & Big Data
+                </button>
+                <button class="tab-btn" data-category="tools">
+                    <i data-lucide="wrench" style="width:16px; height:16px;"></i> Herramientas & DevOps
+                </button>
+            </div>
+
+            <div class="skills-grid" id="skills-container">
+                <span class="skill-tag" data-cat="backend"><i data-lucide="code"></i> Python & Django</span>
+                <span class="skill-tag" data-cat="backend"><i data-lucide="coffee"></i> Java (POO)</span>
+                <span class="skill-tag" data-cat="data"><i data-lucide="database"></i> SQL & Bases de Datos</span>
+                <span class="skill-tag" data-cat="data"><i data-lucide="cpu"></i> Hadoop & Spark</span>
+                <span class="skill-tag" data-cat="backend"><i data-lucide="smartphone"></i> Android / iOS</span>
+                <span class="skill-tag" data-cat="tools"><i data-lucide="terminal"></i> Shell Scripting</span>
+                <span class="skill-tag" data-cat="tools"><i data-lucide="shield-check"></i> Seguridad Informática</span>
+                <span class="skill-tag" data-cat="tools"><i data-lucide="git-branch"></i> Git & GitHub</span>
+                <span class="skill-tag" data-cat="tools"><i data-lucide="file-check-2"></i> Auditoría de Sistemas IT</span>
+                <span class="skill-tag" data-cat="backend"><i data-lucide="globe"></i> HTML5 / CSS3</span>
+                <span class="skill-tag" data-cat="tools"><i data-lucide="network"></i> Modelado MS Visio</span>
+                <span class="skill-tag" data-cat="data"><i data-lucide="layers"></i> NoSQL (MongoDB / Cassandra)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experiencia -->
+    <section id="experiencia" class="reveal">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Proyectos y Roles</span>
+                <h3>Experiencia Destacada</h3>
+                <p>Aplicación de lógica, automatización de consultas y gestión de sistemas informáticos.</p>
+            </div>
+
+            <div class="timeline" id="experience-timeline">
                 
-                <!-- Timeline Item 1 -->
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-slate-900 bg-blue-500 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                        <i class="fas fa-chart-line text-sm"></i>
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-700 hover:border-slate-600 transition">
-                        <div class="flex flex-wrap items-center justify-between mb-2">
-                            <h3 class="font-bold text-white text-lg">Analista de Datos y Reporting Financiero</h3>
-                            <span class="text-xs font-bold text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded">2018 - 2023</span>
+                <!-- Job 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="timeline-title">
+                                <h4>Líder Técnico de Datos & Consultor ERP</h4>
+                                <span class="timeline-company">Grupo Rokys</span>
+                            </div>
+                            <span class="timeline-date">
+                                <i data-lucide="calendar" style="width: 12px; height: 12px;"></i> 2014 - 2016
+                            </span>
                         </div>
-                        <p class="text-sm font-medium text-slate-500 mb-4">Industrias Molier | Perú</p>
-                        <ul class="list-disc list-outside ml-4 text-sm text-slate-300 space-y-2">
-                            <li>Integración y estructuración de múltiples fuentes de información financiera para hacerlas coherentes y explotables (ETL).</li>
-                            <li>Diseño y optimización de métricas analíticas, mejorando la calidad del análisis para el <em>Management</em>.</li>
-                            <li>Auditoría de bases de datos internas, garantizando precisión y proponiendo mejoras lógicas en el código.</li>
-                        </ul>
+                        <div class="timeline-body">
+                            <p>Desempeñé un rol fundamental en la parametrización técnica y estructuración del sistema corporativo:</p>
+                            <ul>
+                                <li>Lideré e implementé el módulo lógico de activos fijos en <strong>SPRING ERP</strong>, automatizando el procesamiento de información para 16 empresas consolidadas y 350 tiendas.</li>
+                                <li>Diseñé y programé consultas complejas para la migración y consolidación de bases de datos transaccionales de alto volumen.</li>
+                                <li>Optimicé los flujos de información del sistema ERP, disminuyendo las colas de procesamiento y minimizando en un 40% las incidencias en centros de costos.</li>
+                            </ul>
+                            <div class="timeline-tags">
+                                <span class="timeline-tag">Spring ERP</span>
+                                <span class="timeline-tag">SQL & Scripting</span>
+                                <span class="timeline-tag">Migración de Datos</span>
+                                <span class="timeline-tag">Optimización de Sistemas</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Timeline Item 2 -->
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-slate-900 bg-emerald-500 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                        <i class="fas fa-project-diagram text-sm"></i>
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-700 hover:border-slate-600 transition">
-                        <div class="flex flex-wrap items-center justify-between mb-2">
-                            <h3 class="font-bold text-white text-lg">Analista de Mejora de Procesos</h3>
-                            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded">2017</span>
+                <!-- Job 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="timeline-title">
+                                <h4>Analista de Sistemas & Procesos</h4>
+                                <span class="timeline-company">Hospital Nacional Arzobispo Loayza</span>
+                            </div>
+                            <span class="timeline-date">
+                                <i data-lucide="calendar" style="width: 12px; height: 12px;"></i> 2017
+                            </span>
                         </div>
-                        <p class="text-sm font-medium text-slate-500 mb-4">Hospital Nacional Arzobispo Loayza | Perú</p>
-                        <ul class="list-disc list-outside ml-4 text-sm text-slate-300 space-y-2">
-                            <li>Utilización de Microsoft Visio para el mapeo, visualización y análisis lógico de flujos operativos, eliminando cuellos de botella.</li>
-                            <li>Implementación efectiva de planes de acción tecnológicos en comunicación constante con <em>stakeholders</em>.</li>
-                        </ul>
+                        <div class="timeline-body">
+                            <p>Análisis, modelado y reestructuración de flujos de información técnica:</p>
+                            <ul>
+                                <li>Utilicé <strong>Microsoft Visio</strong> para modelar íntegramente los diagramas de flujo de datos y protocolos del sistema de información administrativa.</li>
+                                <li>Identifiqué cuellos de botella en la comunicación entre departamentos y propuse planes de acción digitales.</li>
+                                <li>Elaboré documentación de sistemas y auditorías internas en colaboración con la Oficina de Control Interno (OCI).</li>
+                            </ul>
+                            <div class="timeline-tags">
+                                <span class="timeline-tag">MS Visio</span>
+                                <span class="timeline-tag">Flujos de Datos (DFD)</span>
+                                <span class="timeline-tag">Documentación Técnica</span>
+                                <span class="timeline-tag">Control de Calidad</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Timeline Item 3 -->
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-slate-900 bg-purple-500 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                        <i class="fas fa-server text-sm"></i>
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-700 hover:border-slate-600 transition">
-                        <div class="flex flex-wrap items-center justify-between mb-2">
-                            <h3 class="font-bold text-white text-lg">Analista de Sistemas / Implementador</h3>
-                            <span class="text-xs font-bold text-purple-400 bg-purple-500/10 border border-purple-500/20 px-2 py-1 rounded">2014 - 2016</span>
+                <!-- Job 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="timeline-title">
+                                <h4>Analista de Automatización de Datos</h4>
+                                <span class="timeline-company">Industrias Molier</span>
+                            </div>
+                            <span class="timeline-date">
+                                <i data-lucide="calendar" style="width: 12px; height: 12px;"></i> 2018 - 2023
+                            </span>
                         </div>
-                        <p class="text-sm font-medium text-slate-500 mb-4">Grupo Rokys | Perú</p>
-                        <ul class="list-disc list-outside ml-4 text-sm text-slate-300 space-y-2">
-                            <li>Lideré la implementación técnica y automatización del módulo de activos fijos en SPRING ERP para <strong>16 empresas y 350 tiendas</strong>.</li>
-                            <li>Aseguré el cumplimiento normativo mediante la ingesta masiva y precisa de datos al sistema corporativo.</li>
-                        </ul>
+                        <div class="timeline-body">
+                            <p>Encargado de la supervisión de transacciones y optimización de datos:</p>
+                            <ul>
+                                <li>Desarrollé scripts de bases de datos y macros complejas para automatizar el cruce de registros del sistema de facturación y el reporte contable global.</li>
+                                <li>Evalué y audité de manera sistemática los controles de acceso y los niveles de seguridad en los servidores locales.</li>
+                                <li>Generé modelos de proyección analítica y reportes automatizados mediante la integración de fuentes de datos.</li>
+                            </ul>
+                            <div class="timeline-tags">
+                                <span class="timeline-tag">Automatización</span>
+                                <span class="timeline-tag">Gestión de Bases de Datos</span>
+                                <span class="timeline-tag">Scripting & Macros</span>
+                                <span class="timeline-tag">Reporting</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job 4 (Prácticas España) -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="timeline-title">
+                                <h4>Prácticas: Técnico en Software Ofimático & Soporte</h4>
+                                <span class="timeline-company">QUIJOTEL (Ciudad Real)</span>
+                            </div>
+                            <span class="timeline-date">
+                                <i data-lucide="calendar" style="width: 12px; height: 12px;"></i> Julio 2025
+                            </span>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Asistencia técnica en el módulo práctico laboral:</p>
+                            <ul>
+                                <li>Prácticas laborales directas configurando sistemas operativos de red, dando soporte de software avanzado y diseñando automatizaciones ofimáticas para el personal administrativo.</li>
+                            </ul>
+                            <div class="timeline-tags">
+                                <span class="timeline-tag">Sistemas Operativos</span>
+                                <span class="timeline-tag">Automatización Ofimática</span>
+                                <span class="timeline-tag">Soporte Técnico</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job 5 (Prácticas España) -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="timeline-title">
+                                <h4>Prácticas: Auditoría de Sistemas & Control de Información</h4>
+                                <span class="timeline-company">Explotaciones La Serna, SL (Ciudad Real)</span>
+                            </div>
+                            <span class="timeline-date">
+                                <i data-lucide="calendar" style="width: 12px; height: 12px;"></i> Marzo 2025
+                            </span>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Validación contable y control de bases de datos internas:</p>
+                            <ul>
+                                <li>Prácticas enfocadas en la integridad de datos empresariales, auditoría de logs y verificación del correcto procesamiento de bases de datos mercantiles (ADGD0108).</li>
+                            </ul>
+                            <div class="timeline-tags">
+                                <span class="timeline-tag">Auditoría de Sistemas</span>
+                                <span class="timeline-tag">Integridad de Datos</span>
+                                <span class="timeline-tag">Certificado Profesional</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -210,94 +1507,277 @@
         </div>
     </section>
 
-    <!-- Formación Continua (Sin Horas) -->
-    <section id="formacion" class="py-20 bg-slate-950 border-t border-slate-800/50 px-4">
-        <div class="max-w-6xl mx-auto">
-            <div class="mb-12 md:flex md:justify-between md:items-end">
-                <div>
-                    <h2 class="text-3xl font-bold text-white mb-4">Background Educativo & Técnico</h2>
-                    <p class="text-slate-400 max-w-2xl">En constante actualización. Combino mi base universitaria oficial con certificaciones técnicas específicas en programación y datos.</p>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- DAM -->
-                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
-                    <div class="text-blue-500 mb-4"><i class="fas fa-laptop-code text-2xl"></i></div>
-                    <h3 class="font-bold text-white text-lg mb-1">CFGS Desarrollo de Aplicaciones Multiplataforma (DAM)</h3>
-                    <p class="text-xs text-blue-400 font-semibold mb-3">En Curso (IES Maestre de Calatrava)</p>
-                    <p class="text-sm text-slate-400">Bases de datos relacionales, lenguajes estructurados y sistemas de gestión de información.</p>
-                </div>
-
-                <!-- Big Data -->
-                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
-                    <div class="text-cyan-500 mb-4"><i class="fas fa-network-wired text-2xl"></i></div>
-                    <h3 class="font-bold text-white text-lg mb-1">Arquitectura Big Data</h3>
-                    <p class="text-xs text-slate-500 font-semibold mb-3">SEPE - 2024</p>
-                    <p class="text-sm text-slate-400">Procesamiento Batch/Streaming, Sistemas NoSQL (MongoDB, Cassandra) y Visualización (Tableau).</p>
-                </div>
-
-                <!-- Universidad -->
-                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
-                    <div class="text-yellow-500 mb-4"><i class="fas fa-university text-2xl"></i></div>
-                    <h3 class="font-bold text-white text-lg mb-1">Contador Público (Título Universitario)</h3>
-                    <p class="text-xs text-slate-500 font-semibold mb-3">Universidad Inca Garcilaso de la Vega</p>
-                    <p class="text-sm text-slate-400">Base analítica y normativa para la correcta interpretación de KPIs y estados financieros de negocio.</p>
-                </div>
-
-                <!-- Software Ofimatico -->
-                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
-                    <div class="text-emerald-500 mb-4"><i class="fas fa-file-excel text-2xl"></i></div>
-                    <h3 class="font-bold text-white text-lg mb-1">Técnico en Software Ofimático</h3>
-                    <p class="text-xs text-slate-500 font-semibold mb-3">JCCM - 2025</p>
-                    <p class="text-sm text-slate-400">Lenguajes SQL, Bases de Datos, automatización de hojas de cálculo avanzadas y procesadores.</p>
-                </div>
-
-                <!-- Programacion -->
-                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
-                    <div class="text-purple-500 mb-4"><i class="fab fa-python text-2xl"></i></div>
-                    <h3 class="font-bold text-white text-lg mb-1">Especializaciones en Programación</h3>
-                    <p class="text-xs text-slate-500 font-semibold mb-3">2023 - 2024</p>
-                    <p class="text-sm text-slate-400">Python y Django, JAVA, Programación de Dispositivos Móviles IOS/Android.</p>
-                </div>
-
-                <!-- Idiomas -->
-                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
-                    <div class="text-rose-500 mb-4"><i class="fas fa-language text-2xl"></i></div>
-                    <h3 class="font-bold text-white text-lg mb-1">Inglés</h3>
-                    <p class="text-xs text-slate-500 font-semibold mb-3">Certificado Oficial</p>
-                    <p class="text-sm text-slate-400">Comunicación en Lenguas Extranjeras. Capacidad para lectura técnica y comunicación fluida en el entorno laboral.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer / Contacto General -->
-    <footer id="contacto" class="bg-black text-white py-16 px-4 border-t border-slate-800">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-6">¿Hablamos sobre tu próximo proyecto?</h2>
-            <p class="text-slate-400 mb-10 max-w-xl mx-auto">Busco colaborar y aportar valor ayudando a empresas a integrar sus sistemas, automatizar reporting y explotar el análisis de datos.</p>
+    <!-- Educación y Certificaciones -->
+    <section id="educacion" class="reveal">
+        <div class="container edu-cert-grid">
             
-            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12">
-                <a href="mailto:rggprogramador@gmail.com" class="flex items-center bg-slate-900 border border-slate-800 hover:bg-slate-800 px-6 py-3 rounded-full transition-colors group">
-                    <i class="fas fa-envelope text-blue-500 group-hover:text-blue-400 mr-3"></i>
-                    <span class="font-medium text-slate-200">rggprogramador@gmail.com</span>
-                </a>
-                <a href="tel:+34622362475" class="flex items-center bg-slate-900 border border-slate-800 hover:bg-slate-800 px-6 py-3 rounded-full transition-colors group">
-                    <i class="fas fa-phone text-blue-500 group-hover:text-blue-400 mr-3"></i>
-                    <span class="font-medium text-slate-200">(34) 622 362 475</span>
-                </a>
+            <!-- Educación -->
+            <div class="edu-column">
+                <h4><i data-lucide="graduation-cap" style="color: var(--primary);"></i> Formación Académica</h4>
+                
+                <div class="edu-card">
+                    <h5>CFGS Desarrollo de Aplicaciones Multiplataforma (DAM)</h5>
+                    <div class="edu-institution">IES Maestre de Calatrava (Ciudad Real)</div>
+                    <p class="edu-desc">Especialización de Grado Superior en Sistemas de Gestión de Información, Lenguajes de Marcas, Programación de Servicios y Procesos, y Sistemas de Gestión Empresarial (SGE).</p>
+                    <span class="timeline-date" style="margin-top: 0.8rem; background-color: rgba(var(--primary-rgb), 0.1); border-color: rgba(var(--primary-rgb), 0.2);">2025 - 2026 (En curso)</span>
+                </div>
+
+                <div class="edu-card">
+                    <h5>Contador Público (Grado Universitario)</h5>
+                    <div class="edu-institution">Universidad Inca Garcilaso de la Vega</div>
+                    <p class="edu-desc">Formación enfocada en auditoría de sistemas empresariales, lógica de costos y administración corporativa general. Aporta un valor analítico y de negocio.</p>
+                    <span class="timeline-date" style="margin-top: 0.8rem;">Marzo 2026</span>
+                </div>
             </div>
 
-            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
-                <p>&copy; 2026 Rolando David Gómez Gutiérrez.</p>
-                <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="https://linkedin.com/in/rggcontable" target="_blank" class="hover:text-blue-500 transition"><i class="fab fa-linkedin text-2xl"></i></a>
-                    <a href="https://github.com/Rolostark" target="_blank" class="hover:text-white transition"><i class="fab fa-github text-2xl"></i></a>
+            <!-- Certificaciones -->
+            <div class="cert-column">
+                <h4><i data-lucide="award" style="color: var(--secondary);"></i> Certificaciones Tecnológicas</h4>
+                
+                <div class="cert-list">
+                    <div class="cert-item">
+                        <div class="cert-info">
+                            <div class="cert-icon-wrapper"><i data-lucide="database"></i></div>
+                            <div>
+                                <div class="cert-title">Especialista en Arquitectura Big Data</div>
+                                <div class="cert-topics">Procesamiento Hadoop/Spark, NoSQL (MongoDB, Cassandra) y AWS/GCP</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cert-item">
+                        <div class="cert-info">
+                            <div class="cert-icon-wrapper"><i data-lucide="smartphone"></i></div>
+                            <div>
+                                <div class="cert-title">Desarrollo de Dispositivos Móviles</div>
+                                <div class="cert-topics">Creación y despliegue de Apps nativas/híbridas (Android e iOS)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cert-item">
+                        <div class="cert-info">
+                            <div class="cert-icon-wrapper"><i data-lucide="terminal"></i></div>
+                            <div>
+                                <div class="cert-title">Backend Python & Django</div>
+                                <div class="cert-topics">Creación de APIs, arquitecturas MVC y despliegue en la nube</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cert-item">
+                        <div class="cert-info">
+                            <div class="cert-icon-wrapper"><i data-lucide="coffee"></i></div>
+                            <div>
+                                <div class="cert-title">Programación Orientada a Objetos en Java</div>
+                                <div class="cert-topics">Patrones de diseño, estructura de datos y control de flujos</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cert-item">
+                        <div class="cert-info">
+                            <div class="cert-icon-wrapper"><i data-lucide="shield"></i></div>
+                            <div>
+                                <div class="cert-title">Gestión de la Seguridad Informática</div>
+                                <div class="cert-topics">Políticas de acceso, protección de datos y análisis forense IT</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <h4 style="margin-top: 3rem; margin-bottom: 1.5rem;"><i data-lucide="languages" style="color: var(--accent);"></i> Idiomas y Soft Skills</h4>
+                <div class="cert-list">
+                    <div class="cert-item">
+                        <div class="cert-info">
+                            <div class="cert-icon-wrapper" style="background-color:rgba(16, 185, 129, 0.08); color:var(--accent);"><i data-lucide="message-square"></i></div>
+                            <div>
+                                <div class="cert-title">Inglés Profesional & Comercial</div>
+                                <div class="cert-topics">Inglés Nivel III e Inglés para Comercio Internacional</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact CTA Section -->
+    <section id="contacto" class="reveal">
+        <div class="container">
+            <div class="contact-card">
+                <div class="contact-content">
+                    <span class="section-badge">Contacto</span>
+                    <h4>¿Hablamos de tu próximo proyecto de software?</h4>
+                    <p>Estoy disponible para colaborar en proyectos de desarrollo backend, integraciones API, análisis de datos o desarrollo multiplataforma. ¡Conectemos!</p>
+                    
+                    <div class="contact-methods">
+                        <button class="contact-btn primary-btn" onclick="copyEmail()">
+                            <i data-lucide="copy" style="width: 16px; height: 16px;"></i> Copiar rggprogramador@gmail.com
+                        </button>
+                        <a href="https://www.linkedin.com/in/gomez-it/" target="_blank" class="contact-btn">
+                            <i data-lucide="linkedin" style="width: 16px; height: 16px;"></i> Conectar en LinkedIn
+                        </a>
+                        <a href="https://github.com/Rolostark" target="_blank" class="contact-btn">
+                            <i data-lucide="github" style="width: 16px; height: 16px;"></i> Ver GitHub
+                        </a>
+                    </div>
+                    
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">
+                        Ubicación: Ciudad Real, España (Disponible para remoto, híbrido o presencial).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clipboard success notification toast -->
+    <div class="toast" id="toast-notification">
+        <i data-lucide="check-circle" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: 5px;"></i>
+        ¡Email copiado al portapapeles!
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-wrapper">
+            <div class="footer-logo">
+                RD.GÓMEZ<span class="logo-dot"></span>
+            </div>
+            <div class="footer-copy">
+                &copy; 2026 Rolando David Gómez Gutiérrez. Todos los derechos reservados.
+            </div>
+            <div class="footer-socials">
+                <a href="mailto:rggprogramador@gmail.com" title="Enviar Email"><i data-lucide="mail"></i></a>
+                <a href="https://www.linkedin.com/in/gomez-it/" target="_blank" title="LinkedIn"><i data-lucide="linkedin"></i></a>
+                <a href="https://github.com/Rolostark" target="_blank" title="GitHub"><i data-lucide="github"></i></a>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('theme-icon-sun');
+        const moonIcon = document.getElementById('theme-icon-moon');
+        const htmlElement = document.documentElement;
+
+        // Check for local storage theme or default to dark
+        const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcons(savedTheme);
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('portfolio-theme', newTheme);
+            updateThemeIcons(newTheme);
+        });
+
+        function updateThemeIcons(theme) {
+            if (theme === 'dark') {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'inline-block';
+            } else {
+                sunIcon.style.display = 'inline-block';
+                moonIcon.style.display = 'none';
+            }
+        }
+
+        // Navbar scrolled background effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Navigation Active Links on Scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Skills Filter Logic
+        const skillTabs = document.querySelectorAll('.skills-tabs .tab-btn');
+        const skillTags = document.querySelectorAll('.skill-tag');
+
+        skillTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                skillTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const category = tab.getAttribute('data-category');
+                
+                skillTags.forEach(tag => {
+                    const tagCat = tag.getAttribute('data-cat');
+                    if (category === 'all' || tagCat === category) {
+                        tag.style.display = 'flex';
+                        setTimeout(() => tag.style.opacity = '1', 50);
+                    } else {
+                        tag.style.opacity = '0';
+                        setTimeout(() => tag.style.display = 'none', 200);
+                    }
+                });
+            });
+        });
+
+        // Clipboard Copy Email
+        function copyEmail() {
+            const email = "rggprogramador@gmail.com";
+            navigator.clipboard.writeText(email).then(() => {
+                const toast = document.getElementById('toast-notification');
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }).catch(err => {
+                console.error('No se pudo copiar el email: ', err);
+            });
+        }
+
+        // Scroll Reveal Animations
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            const triggerBottom = window.innerHeight * 0.85;
+            
+            revealElements.forEach(el => {
+                const elTop = el.getBoundingClientRect().top;
+                if (elTop < triggerBottom) {
+                    el.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Run once on load to reveal elements currently on screen
+        revealOnScroll();
+    </script>
 </body>
 </html>
